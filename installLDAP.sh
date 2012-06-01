@@ -49,6 +49,13 @@ sudo apt-get install slapd ldap-utils -y
 # sudo ldapadd -Y EXTERNAL -H ldapi:/// -f /tmp/ldifo/cn\=config/cn\=schema/cn\=\{6\}dyngroup.ldif
 # rm -rf /tmp/ldifo
 
+# Delete default Slapd configuration schema
+echoc $RED "Deleting default slapd config schema ..."
+sudo service slapd stop
+sudo rm -rf /etc/ldap/slapd.d/cn\=config/olcDatabase\=\{1\}hdb.ldif
+sudo rm /var/lib/ldap/*
+sudo service slapd start
+
 # Add mocambos backend schema
 echoc $RED "Adding backend schema:"
 echoc $RED "Adding backend.mocambos.net.ldif ..." 
